@@ -86,7 +86,6 @@ Replace "provider" with the name of your DNS provider (in the table below). You 
 | googlecloud   | GCE_PROJECT                                                                 |
 | namecheap     | NAMECHEAP_API_USER<br>NAMECHEAP_API_KEY                                         |
 | rfc2136       | RFC2136_NAMESERVER<br>RFC2136_TSIG_ALGORITHM<br>RFC2136_TSIG_KEY<br>RFC2136_TSIG_SECRET |
-| googlecloud   | GCE_PROJECT                                                                 |
 | route53       | AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY                                      |
 | vultr         | VULTR_API_KEY                                                               |
 
