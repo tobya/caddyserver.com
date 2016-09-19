@@ -123,12 +123,12 @@ I made the following Caddyfile together with *mholt* and *dprandzioch*. The conf
 
         # remove trailing / as it causes errors with php-fpm
         rewrite {
-            r ^/remote.php/(webdav|caldav|carddav)(\/?)$
+            r ^/remote.php/(webdav|caldav|carddav|dav)(\/?)$
             to /remote.php/{1}
         }
 
         rewrite {
-            r ^/remote.php/(webdav|caldav|carddav)/(.+)(\/?)$
+            r ^/remote.php/(webdav|caldav|carddav|dav)/(.+)(\/?)$
             to /remote.php/{1}/{2}
         }
 
