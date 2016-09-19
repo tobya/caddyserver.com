@@ -4,13 +4,13 @@ type: docs
 directive: true
 ---
 
-tls configures HTTPS connections. Since HTTPS is enabled automatically, this directive is mainly used to explicitly override default settings; use with care.
+tls configures HTTPS connections. Since HTTPS is [enabled automatically](/docs/automatic-https), this directive is mainly used to explicitly override default settings; use with care.
 
 Caddy supports SNI (Server Name Indication), so you can serve multiple HTTPS sites from the same port on your machine. In addition, Caddy implements OCSP stapling for all qualifying certificates.
 
 The tls directive will ignore sites that are explicitly defined to be http:// or are on port 80\. This allows you to use the tls directive in a server block that is shared with both HTTP and HTTPS sites.
 
-If not all the hostnames are not known when starting the server, you can use the [On-Demand TLS](/docs/automatic-https#on-demand) feature, which issues certificates during the TLS handshake rather than at startup.
+If not all the hostnames are not known when starting the server, you can use the [On-Demand TLS](/docs/automatic-https#on-demand-tls) feature, which issues certificates during the TLS handshake rather than at startup.
 
 ### Syntax
 
@@ -54,7 +54,7 @@ Advanced users may open a settings block for more control, optionally specifying
 *   **cert** and **key** are the same as above.
 *   **min** and **max** are the minimum and maximum protocol versions to support, respectively. See below for valid values. If min and max are the same, it need only be specified once.
 *   **ciphers...** is a list of space-separated ciphers that will be supported. If you list any, only the ones you specify will be allowed. See below for valid values.
-*   **clientcas...** is a list of space-separated client root CAs used for verification during TLS client authentication. If used, clients will be asked to present their certificate by their browser, which will be verified against this list of client certificate authorities. A client will not be allowed to connect if their certificate was not signed by one of these root CAs. You may modify the strictness of client authentication using one of the keywords before the list of client CAs:
+*   **clientcas...** is a list of space-separated client root CAs used for verification during TLS client authentication. If used, clients will be asked to present their certificate by their browser, which will be verified against this list of client certificate authorities. A client will not be allowed to connect if their certificate was not signed by one of these root CAs. Note that this setting applies to the entire listener, not just a single site. You may modify the strictness of client authentication using one of the keywords before the list of client CAs:
     *   **request** merely asks a client to provide a certificate, but will not fail if none is given or if an invalid one is presented.
     *   **require** requires a client certificate, but will not verify it.
     *   **verify_if_given** will not fail if none is presented, but reject all that do not pass verification.
