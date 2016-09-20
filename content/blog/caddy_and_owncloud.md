@@ -128,7 +128,7 @@ I made the following Caddyfile together with *mholt* and *dprandzioch*. The conf
         }
 
         rewrite {
-            r ^/remote.php/(webdav|caldav|carddav|dav)/(.+)(\/?)$
+            r ^/remote.php/(webdav|caldav|carddav|dav)/(.+?)(\/?)$
             to /remote.php/{1}/{2}
         }
 
