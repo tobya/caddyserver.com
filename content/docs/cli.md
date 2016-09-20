@@ -41,6 +41,10 @@ Indicates that you have read and agree to the Let's Encrypt Subscriber Agreement
 
 Base URL to the certificate authority's ACME server directory. Used for creating TLS certificates.
 
+#### -catimeout
+
+Change the ACME CA HTTP timeout. Not usually necessary unless your network experiences significant latency contacting the ACME CA server. In those cases, raising this value can help. Accepts a duration value; default is `10s`.
+
 #### -conf
 
 The Caddyfile to use to configure Caddy. Must be a valid path to the file, either relative or absolute.

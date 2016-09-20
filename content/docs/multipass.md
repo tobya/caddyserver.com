@@ -16,14 +16,14 @@ Login links are encoded [JSON Web Tokens][jwt] containing information about the 
 ### Syntax
 
 <code class="block"><span class="hl-directive">multipass</span> {
-	<span class="hl-subdirective">resources /fhloston /paradise</span>
-	<span class="hl-subdirective">handles leeloo@dallas korben@dallas</span>
-	<span class="hl-subdirective">basepath /multipass</span>
-	<span class="hl-subdirective">expires 24h</span>
-	<span class="hl-subdirective">smtp_addr localhost:2525</span>
-	<span class="hl-subdirective">smtp_user vito</span>
-	<span class="hl-subdirective">smtp_pass secret</span>
-	<span class="hl-subdirective">mail_from "Multipass <no-reply@dallas>"</span>
+	<span class="hl-subdirective">resources</span> /fhloston /paradise
+	<span class="hl-subdirective">handles</span> leeloo@dallas korben@dallas
+	<span class="hl-subdirective">basepath</span> /multipass
+	<span class="hl-subdirective">expires</span> 24h
+	<span class="hl-subdirective">smtp_addr</span> localhost:2525
+	<span class="hl-subdirective">smtp_user</span> vito
+	<span class="hl-subdirective">smtp_pass</span> secret
+	<span class="hl-subdirective">mail_from</span> "Multipass <no-reply@dallas>"
 }</code>
 
 - __resources__ Path of resources to protect. _Default: /_
@@ -40,19 +40,19 @@ Login links are encoded [JSON Web Tokens][jwt] containing information about the 
 Protect all resources at /fhloston and /paradise so only users with handles leeloo@dallas and korben@dallas can access them. Unauthenticated users are redirected to /multipass. From here users can request an access token, sent using the specified SMTP server.
 
 <code class="block"><span class="hl-directive">multipass</span> {
-	<span class="hl-subdirective">resources /fhloston /paradise</span>
-	<span class="hl-subdirective">handles leeloo@dallas korben@dallas</span>
-	<span class="hl-subdirective">basepath /multipass</span>
-	<span class="hl-subdirective">smtp_addr localhost:2525</span>
-	<span class="hl-subdirective">mail_from "Multipass <no-reply@dallas>"</span>
+	<span class="hl-subdirective">resources</span> /fhloston /paradise
+	<span class="hl-subdirective">handles</span> leeloo@dallas korben@dallas
+	<span class="hl-subdirective">basepath</span> /multipass
+	<span class="hl-subdirective">smtp_addr</span> localhost:2525
+	<span class="hl-subdirective">mail_from</span> "Multipass &lt;no-reply@dallas&gt;"
 }</code>
 
 
 A minimal example with only required fields:
 
 <code class="block"><span class="hl-directive">multipass</span> {
-	<span class="hl-subdirective">handles leeloo@dallas</span>
-	<span class="hl-subdirective">mail_from "Multipass <no-reply@dallas>"</span>
+	<span class="hl-subdirective">handles</span> leeloo@dallas
+	<span class="hl-subdirective">mail_from</span> "Multipass <no-reply@dallas>"
 }</code>
 
 
