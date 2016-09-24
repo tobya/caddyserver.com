@@ -23,6 +23,8 @@ However, advanced features including load balancing can be utilized with an expa
 	<span class="hl-subdirective">policy</span> random | least_conn | round_robin | ip_hash
 	<span class="hl-subdirective">fail_timeout</span> <i>duration</i>
 	<span class="hl-subdirective">max_fails</span> <i>integer</i>
+	<span class="hl-subdirective">try_duration</span> <i>duration</i>
+	<span class="hl-subdirective">try_interval</span> <i>duration</i>
 	<span class="hl-subdirective">health_check</span> <i>path</i>
 	<span class="hl-subdirective">health_check_interval</span> <i>interval_duration</i>
 	<span class="hl-subdirective">health_check_timeout</span> <i>timeout_duration</i>
@@ -39,11 +41,13 @@ However, advanced features including load balancing can be utilized with an expa
 *   **from** is the base path to match for the request to be proxied.
 *   **to** is the destination endpoint to proxy to. At least one is required, but multiple may be specified. If a scheme (http/https) is not specified, http is used. Unix sockets may also be used.
 *   **policy** is the load balancing policy to use; applies only with multiple backends. May be one of random, least_conn, round_robin, or ip_hash. Default is random.
-*   **fail_timeout** specifies how long to consider a backend as down after it has failed. While it is down, requests will not be routed to that backend. A backend is "down" if Caddy fails to communicate with it. The default value is 10 seconds ("10s").
-*   **max_fails** is the number of failures within fail_timeout that are needed before considering a backend to be down. If 0, the backend will never be marked as down. Default is 1.
+*   **fail_timeout** specifies how long to remember a failed request to a backend. A timeout > 0 enables request failure counting. If the number of failed requests accumulates to the max_fails value, the host will be considered down and no requests will be routed to it until failed requests begin to be forgotten. By default, this is disabled (0s), meaning that failed requests will not be remembered and the backend will still be considered available. Must be a duration value (like "10s" or "1m").
+*   **max_fails** is the number of failed requests within fail_timeout that are needed before considering a backend to be down. Not used if fail_timeout is 0. Must be at least 1. Default is 1.
+*   **try_duration** is how long to try selecting available upstream hosts for each request. By default, this retry is disabled ("0s"). Clients may hang for this long while the proxy tries to find an available upstream host. This value is only used if a request to the initially-selected upstream host fails.
+*   **try_interval** is how long to wait between selecting another upstream host to handle a request. Default is 1 second ("1s"). Only relevant when a request to an upstream host fails. Be aware that setting this to 0 with a non-zero try_duration can result in very tight looping and spin the CPU if all hosts stay down.
 *   **health_check** will use _path_ to check the health of each backend. If a backend returns a status code of 200-399, then that backend is considered healthy. If it doesn't, the backend is marked as unhealthy for at least _interval\_duration_ and no requests are routed to it. If this option is not provided then health checks are disabled.
 *   **health_check_interval** specifies the time between each health check on unhealthy backends. The default interval is 30 seconds ("30s").
-*   **health_check_timeout** sets a deadline for health check requests. If a health check does not respond withing _timeout_duration_, the health check is considered failed. The default is 60 seconds ("60s").
+*   **health_check_timeout** sets a deadline for health check requests. If a health check does not respond within _timeout\_duration_, the health check is considered failed. The default is 60 seconds ("60s").
 *   **header_upstream** sets headers to be passed to the backend. The field name is _name_ and the value is _value_. This option can be specified multiple times for multiple headers, and dynamic values can also be inserted using [request placeholders](/docs/placeholders). By default, existing header fields will be replaced, but you can add/merge field values by prefixing the field name with a plus sign (+). You can remove fields by prefixing the header name with a minus sign (-) and leaving the value blank.
 *   **header_downstream** modifies response headers coming back from the backend. It works the same way header_upstream does.
 *   **keepalive** is the maximum number of idle connections to keep open to the backend. Enabled by default; set to 0 to disable keepalives. Set to a higher value on busy servers that are properly tuned.
