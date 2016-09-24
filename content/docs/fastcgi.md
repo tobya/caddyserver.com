@@ -14,6 +14,7 @@ fastcgi proxies requests to a FastCGI server. Even though the most common use fo
     <span class="hl-subdirective">index</span>  <i>indexfile</i>
     <span class="hl-subdirective">env</span>    <i>key value</i>
     <span class="hl-subdirective">except</span> <i>ignored_paths...</i>
+    <span class="hl-subdirective">pool</span>   <i>pool_size</i>
 }</code>
 
 *   **path** is the base path to match before the request will be forwarded
@@ -24,6 +25,7 @@ fastcgi proxies requests to a FastCGI server. Even though the most common use fo
 *   **indexfile** specifies the default file to try if a file is not specified by the URL
 *   **key value** sets an environment variable named _key_ with the given _value_; the **env** property can be used multiple times and values may use [request placeholders](/docs/placeholders)
 *   **ignored_paths...** is a list of space-separated request paths to be excepted from fastcgi processing, even if it matches the base path
+*   **pool_size** is the number of persistent connections to reuse (can be good for performance on Windows); default is 0
 
 ### Presets
 
