@@ -31,6 +31,11 @@ The log file can be any filename. It could also be `stdout` or `stderr` to write
 
 You can specify a custom log format with any [placeholder](/docs/placeholders) values. Log supports both request and response placeholders.
 
+Currently are two predefined formats.
+
+* {common} (default)
+* {combined}
+
 ### Log Rotation
 
 If you enable log rotation, log files will be automatically maintained when they get large or old. You can use rotation by opening a block on your first line, which can be any of the variations described above:
@@ -56,6 +61,10 @@ Log all requests to a file:
 Custom log format:
 
 <code class="block"><span class="hl-directive">log</span> <span class="hl-arg">/ ../access.log "{proto} Request: {method} {path}"</span></code>
+
+Predefined format:
+
+<code class="block"><span class="hl-directive">log</span> <span class="hl-arg">/ stdout "{combined}"</span></code>
 
 With rotation:
 
