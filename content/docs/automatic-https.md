@@ -76,18 +76,19 @@ In your Caddyfile, you will use the [tls](/docs/tls) directive with the dns keyw
 Replace "provider" with the name of your DNS provider (in the table below). You will also need to set environment variables with your account credentials:
 
 
-| Provider Name | Environment Variables to Set                                                |
-|---------------|-----------------------------------------------------------------------------|
-| cloudflare    | CLOUDFLARE_EMAIL<br>CLOUDFLARE_API_KEY                                        |
-| digitalocean  | DO_AUTH_TOKEN                                                               |
-| dnsimple      | DNSIMPLE_EMAIL<br>DNSIMPLE_API_KEY                                              |
-| dyn           | DYN_CUSTOMER_NAME<br>DYN_USER_NAME<br>DYN_PASSWORD                                  |
-| gandi         | GANDI_API_KEY                                                               |
-| googlecloud   | GCE_PROJECT                                                                 |
-| namecheap     | NAMECHEAP_API_USER<br>NAMECHEAP_API_KEY                                         |
+| Provider Name | Environment Variables to Set                                                            |
+| --------------| ----------------------------------------------------------------------------------------|
+| cloudflare    | CLOUDFLARE_EMAIL<br>CLOUDFLARE_API_KEY                                                  |
+| digitalocean  | DO_AUTH_TOKEN                                                                           |
+| dnsimple      | DNSIMPLE_EMAIL<br>DNSIMPLE_API_KEY                                                      |
+| dyn           | DYN_CUSTOMER_NAME<br>DYN_USER_NAME<br>DYN_PASSWORD                                      |
+| gandi         | GANDI_API_KEY                                                                           |
+| googlecloud   | GCE_PROJECT                                                                             |
+| linode        | LINODE_API_KEY                                                                          |
+| namecheap     | NAMECHEAP_API_USER<br>NAMECHEAP_API_KEY                                                 |
 | rfc2136       | RFC2136_NAMESERVER<br>RFC2136_TSIG_ALGORITHM<br>RFC2136_TSIG_KEY<br>RFC2136_TSIG_SECRET |
-| route53       | AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY                                      |
-| vultr         | VULTR_API_KEY                                                               |
+| route53       | AWS_ACCESS_KEY_ID<br>AWS_SECRET_ACCESS_KEY                                              |
+| vultr         | VULTR_API_KEY                                                                           |
 
 When you configure the DNS challenge, Caddy will use that challenge exclusively. Note that some providers may be slow to apply changes (on the order of minutes).
 
