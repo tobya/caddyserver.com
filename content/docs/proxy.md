@@ -57,7 +57,7 @@ However, advanced features including load balancing can be utilized with an expa
 *   **insecure\_skip\_verify** overrides verification of the backend TLS certificate, essentially disabling security features over HTTPS.
 *   **preset** is an optional shorthand way of configuring the proxy to meet certain conditions. See presets below.
 
-<mark class="block">Note that in order to take advantage of load balancing when backend hosts go down, you must set fail_timeout.</mark>
+<mark class="block">Note that in order to do proper, redundant load balancing in the event of failures, you **must** set fail\_timeout and try\_duration to values &gt; 0.</mark>
 
 Everything after the first _to_ is optional, including the block of properties enclosed by curly braces.
 
