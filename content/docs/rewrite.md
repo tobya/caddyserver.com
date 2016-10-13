@@ -27,7 +27,7 @@ Advanced users may open a block and make a complex rewrite rule:
 
 *   **basepath** is the base path to match before rewriting with regular expression. Default is /.
 *   **regexp** (shorthand: **r**) will match the path with the given regular expression **pattern**. <mark>Extremely high-load servers should avoid using regular expressions.</mark>
-*   **extensions...** is a space-separated list of file extensions to include or ignore. Prefix an extension with `!` to exclude an extension. The forward slash `/` symbol matches paths without file extensions.
+*   **extensions...** is a space-separated list of file extensions (prepended with a dot) to include or ignore. Prefix an extension with `!` to exclude an extension. The forward slash `/` symbol matches paths without file extensions.
 *   **if** specifies a rewrite condition. Multiple ifs are AND-ed together. **a** and **b** are any string and may use [request placeholders](/docs/placeholders). **cond** is the condition, with possible values explained below.
 *   **if_op** specifies how the ifs are evaluated; the default is `and`.
 *   **destinations...** is one or more space-separated paths to rewrite to, with support for [request placeholders](/docs/placeholders) as well as numbered regular expression captures such as {1}, {2}, etc. Rewrite will check each destination in order and rewrite to the first destination that exists. Each one is checked as a file or, if ends with /, as a directory. The last destination will act as default if no other destination exists.
