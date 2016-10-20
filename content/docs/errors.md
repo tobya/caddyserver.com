@@ -33,11 +33,16 @@ Log errors into a file in the parent directory:
 
 Log errors but also serve custom error pages:
 
-
 <code class="block"><span class="hl-directive">errors</span> {
 	<span class="hl-subdirective">log</span> ../error.log
 	<span class="hl-subdirective">404</span> 404.html <span class="hl-comment"># Not Found</span>
 	<span class="hl-subdirective">500</span> 500.html <span class="hl-comment"># Internal Server Error</span>
+}</code>
+
+Define a default, catch-all error page:
+
+<code class="block"><span class="hl-directive">errors</span> {
+	<span class="hl-subdirective">*</span> default_error.html
 }</code>
 
 Make errors visible to the client (for debugging only):
