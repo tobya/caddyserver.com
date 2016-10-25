@@ -47,6 +47,13 @@ The if keyword is a powerful way to describe your rule. It takes the format `a c
 
 ### Examples
 
+Rewrite everything to /index.php. (rewrite / /index.php{uri} will only match /)
+
+<code class="block"><span class="hl-directive">rewrite</span> / {
+    <span class="hl-subdirective">regexp</span> .*
+    <span class="hl-subdirective">to</span> /index.php{uri}
+}</code>
+
 When requests come in for /mobile, actually serve /mobile/index.
 
 <code class="block"><span class="hl-directive">rewrite</span> <span class="hl-arg">/mobile /mobile/index</span></code>
