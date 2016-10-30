@@ -33,8 +33,8 @@ You can specify a custom log format with any [placeholder](/docs/placeholders) v
 
 Currently there are two predefined formats.
 
-* {common} (default)
-* {combined}
+* **{common}** (default) - `{remote} - [{when}] "{method} {uri} {proto}" {status} {size}`
+* **{combined}** - {common} appended with `"{>Referer}" "{>User-Agent}"`
 
 ### Log Rotation
 
