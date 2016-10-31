@@ -31,10 +31,10 @@ The log file can be any filename. It could also be `stdout` or `stderr` to write
 
 You can specify a custom log format with any [placeholder](/docs/placeholders) values. Log supports both request and response placeholders.
 
-Currently are two predefined formats.
+Currently there are two predefined formats.
 
-* {common} (default)
-* {combined}
+* **{common}** (default) - `{remote} - [{when}] "{method} {uri} {proto}" {status} {size}`
+* **{combined}** - {common} appended with `"{>Referer}" "{>User-Agent}"`
 
 ### Log Rotation
 
