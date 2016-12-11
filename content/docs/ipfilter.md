@@ -23,7 +23,7 @@ ipfilter blocks or allows requests based on the client's IP.
 
 *   **paths...** is a list of space-separated base paths to which to apply this filter rule (use / to match everything).
 *   **rule** either block or allow.
-*   **ip...** list or/and ranges of space-separated IPs to apply the rule to, there are two ways of ranging over IPs **-** Ranging only over the last section of an IP e.g. `192.168.1.5-50` will translate into a range starts from `192.168.1.5` to `192.168.1.50` inclusively. **-** Ranging over the left out sections of an IP from `0` to `255` e.g. `192.168` will translate into a range starts from `192.168.0.0` to `192.168.255.255`.
+*   **ip...** space-seperated IPs or ranges of IPs in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 *   **country...** list of space-separated country ISO codes. For a complete list of country codes, refer to [Wikipedia](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assign).
 *   **db_path** is the path to the geo-IP database (relative to working directory). required only if the subdirective 'country' is used.
 *   **block_page** is an optional file that will be shown to blocked clients (relative to working directory).
@@ -38,11 +38,11 @@ Only serve one IP address, and block everyone else.
 	<span class="hl-subdirective">ip</span>   93.168.247.245
 }</code>
 
-Block two ranges of IPs as well as one specific IP, and show them default.html instead. Ranges are inclusive.
+Block two ranges of IPs as well as one specific IP, and show them default.html instead.
 
 <code class="block"><span class="hl-directive">ipfilter</span> <span class="hl-arg">/</span> {
 	<span class="hl-subdirective">rule</span>       block
-	<span class="hl-subdirective">ip</span>         192.168 212.10.15.0-255 5.23.4.24
+	<span class="hl-subdirective">ip</span>         192.168.0.0/16 2E80::20:F8FF:FE31:77CF/16 5.23.4.24
 	<span class="hl-subdirective">blockpage</span>  /local/data/default.html
 }</code>
 
@@ -52,7 +52,7 @@ Only allow clients from France as well as two specific IP addresses
 	<span class="hl-subdirective">rule</span>      allow
 	<span class="hl-subdirective">country</span>   FR
 	<span class="hl-subdirective">database</span>  /local/data/GeoLite2-Country.mmdb
-	<span class="hl-subdirective">ip</span>        99.23.4.24 201.22.3.12
+	<span class="hl-subdirective">ip</span>        99.23.4.24 2E80::20::FEF1:91C4
 }</code>
 
 Only serve clients from the United States or Japan:
@@ -71,3 +71,7 @@ Block requests coming from the US or Japan but only to /notglobal and /secret, s
 	<span class="hl-subdirective">database</span>   /local/data/GeoLite2-Country.mmdb
 	<span class="hl-subdirective">blockpage</span>  /local/data/default.html
 }</code>
+
+### Backward compatibility
+
+ipfilter used to support different ways of specifiying ranges, CIDR now is the only notation supported, The old notations will get converted automatically, Although re-writing them in CIDR is highly recommended for efficiency.
