@@ -39,7 +39,7 @@ However, advanced features including load balancing can be utilized with an expa
 }</code>
 
 *   **from** is the base path to match for the request to be proxied.
-*   **to** is the destination endpoint to proxy to. At least one is required, but multiple may be specified. If a scheme (http/https) is not specified, http is used. Unix sockets may also be used.
+*   **to** is the destination endpoint to proxy to. At least one is required, but multiple may be specified. If a scheme (http/https) is not specified, http is used. Unix sockets may also be used by prefixing "unix:".
 *   **policy** is the load balancing policy to use; applies only with multiple backends. May be one of random, least_conn, round_robin, or ip_hash. Default is random.
 *   **fail\_timeout** specifies how long to remember a failed request to a backend. A timeout > 0 enables request failure counting and is required for load balancing between backends in case of failures. If the number of failed requests accumulates to the max\_fails value, the host will be considered down and no requests will be routed to it until failed requests begin to be forgotten. By default, this is disabled (0s), meaning that failed requests will not be remembered and the backend will always be considered available. Must be a duration value (like "10s" or "1m").
 *   **max\_fails** is the number of failed requests within fail\_timeout that are needed before considering a backend to be down. Not used if fail_timeout is 0. Must be at least 1. Default is 1.
