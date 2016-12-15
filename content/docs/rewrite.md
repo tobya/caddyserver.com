@@ -78,3 +78,10 @@ Rewrite /app to /index with a query string. `{1}` is the matched group `(.*)`.
     <span class="hl-subdirective">r</span>  (.*)
     <span class="hl-subdirective">to</span> /index?path={1}
 }</code>
+
+Rewrite requests for /app/example to /index.php?category=example.
+
+<code class="block"><span class="hl-directive">rewrite</span> <span class="hl-arg">/app</span> {
+    <span class="hl-subdirective">r</span>  ^/(\w+)/?$
+    <span class="hl-subdirective">to</span> /index?category={1}
+}</code>
