@@ -23,6 +23,12 @@ Template actions are enclosed between `{{` and `}}` markers. Template words are 
 {{.Include "path/to/file.html" "arg1" 2 "value 3"}}  // with arguments
 ```
 
+**Get argument within included file:**
+
+```html
+{{index .Args 0}} // 0 is first argument, and so on
+```
+
 **Include and render a Markdown file:** (not needed in [markdown](/docs/markdown) middleware)
 
 ```html
