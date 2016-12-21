@@ -6,6 +6,8 @@ directive: true
 
 gzip enables gzip compression if the client supports it. By default, responses are not gzipped. If enabled, the default settings will ensure that images, videos, and archives (already compressed) are not gzipped.
 
+Note that, even without the gzip directive, Caddy will serve .gz (gzip) or .br (brotli) compressed files if they already exist on disk and the client supports that encoding.
+
 ### Syntax
 
 <code class="block"><span class="hl-directive">gzip</span></span></code>

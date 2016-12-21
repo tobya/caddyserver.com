@@ -6,6 +6,8 @@ directive: true
 
 tls configures HTTPS connections. Since HTTPS is [enabled automatically](/docs/automatic-https), this directive is mainly used to explicitly override default settings; use with care.
 
+Because this directive configures a network listener shared by all the sites bound to the same address, the settings for each site have to be combined into a single configuration. Caddy goes with the widest range of protocol versions, unions cipher suites and curves, and chooses the strictest type of client authentication. All other TLS properties for each site must be agreeable, or Caddy will throw an error.
+
 Caddy supports SNI (Server Name Indication), so you can serve multiple HTTPS sites from the same port on your machine. In addition, Caddy implements OCSP stapling for all qualifying certificates.
 
 The tls directive will ignore sites that are explicitly defined to be http:// or are on port 80\. This allows you to use the tls directive in a server block that is shared with both HTTP and HTTPS sites.
@@ -44,16 +46,19 @@ Advanced users may open a settings block for more control, optionally specifying
 <code class="block"><span class="hl-directive">tls</span> <span class="hl-arg">[<i>cert key</i>]</span> {
     <span class="hl-subdirective">protocols</span> <i>min max</i>
     <span class="hl-subdirective">ciphers</span>   <i>ciphers...</i>
+    <span class="hl-subdirective">curves</span>    <i>curves...</i>
     <span class="hl-subdirective">clients</span>   <i>[request|require|verify_if_given]</span> clientcas...</i>
 	<span class="hl-subdirective">load</span>      <i>dir</i>
 	<span class="hl-subdirective">max_certs</span> <i>limit</i>
 	<span class="hl-subdirective">key_type</span>  <i>type</i>
-	<span class="hl-subdirective">dns</span>       <i>provider</i>
+    <span class="hl-subdirective">dns</span>       <i>provider</i>
+	<span class="hl-subdirective">muststaple</span>
 }</code>
 
 *   **cert** and **key** are the same as above.
 *   **min** and **max** are the minimum and maximum protocol versions to support, respectively. See below for valid values. If min and max are the same, it need only be specified once.
-*   **ciphers...** is a list of space-separated ciphers that will be supported. If you list any, only the ones you specify will be allowed. See below for valid values.
+*   **ciphers...** is a list of space-separated ciphers that will be supported, overriding the defaults. If you list any, only the ones you specify will be allowed and preferred in the order you specify. See below for valid values.
+*   **curves...** is a list of space-separated curves that will be supported in the given order, overriding the defaults. Valid curves are listed below.
 *   **clientcas...** is a list of space-separated client root CAs used for verification during TLS client authentication. If used, clients will be asked to present their certificate by their browser, which will be verified against this list of client certificate authorities. A client will not be allowed to connect if their certificate was not signed by one of these root CAs. Note that this setting applies to the entire listener, not just a single site. You may modify the strictness of client authentication using one of the keywords before the list of client CAs:
     *   **request** merely asks a client to provide a certificate, but will not fail if none is given or if an invalid one is presented.
     *   **require** requires a client certificate, but will not verify it.
@@ -63,6 +68,7 @@ Advanced users may open a settings block for more control, optionally specifying
 *   **limit** puts a limit on the number of certificates allowed to be issued on demand (during TLS handshake) for this site. Specifying this value enables [On-Demand TLS](/docs/automatic-https#on-demand). It must be a positive integer. This value gets reset after the process exits (but is preserved through reloads).
 *   **type** is the type of key to use when generating keys for certificates (only applies to managed orTLS or self-signed certificates). Valid values are rsa2048, rsa4096, rsa8192, p256, and p384\. Default is currently rsa2048.
 *   **provider** is the name of a DNS provider; specifying it enables the [DNS challenge](/docs/automatic-https#dns-challenge). Note that you need to give credentials for it to work.
+*   **muststaple** enables [Must-Staple](https://blog.mozilla.org/security/2015/11/23/improving-revocation-ocsp-must-staple-and-short-lived-certificates/) for managed certificates. Use with care.
 
 ### Protocols
 
@@ -96,6 +102,14 @@ The following cipher suites are currently supported, in descending order of pref
 <mark class="block">Note: The HTTP/2 spec blacklists over 275 cipher suites for security reasons. Unless you know what you're doing, it's best to accept the default cipher suite settings.</mark>
 
 Cipher suites may be added to or removed from Caddy at any time. Similarly, the default cipher suites may be changed at any time.
+
+### Curves
+
+The following curves are supported for EC cipher suites:
+
+*   p256
+*   p384
+*   p521
 
 
 ### Examples

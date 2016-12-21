@@ -19,7 +19,8 @@ Template actions are enclosed between `{{` and `}}` markers. Template words are 
 **Include another file:**
 
 ```html
-{{.Include "path/to/file.html"}}
+{{.Include "path/to/file.html"}}  // no arguments
+{{.Include "path/to/file.html" "arg1" 2 "value 3"}}  // with arguments
 ```
 
 **Include and render a Markdown file:** (not needed in [markdown](/docs/markdown) middleware)
@@ -163,6 +164,12 @@ RawQuery returns the query string. You can replace RawQuery with Host, Scheme, F
 
 ```html
 {{.Map "key1" "value1" "key2" "value2"}}
+```
+
+**List files in a directory:**
+
+```html
+{{.Files "sub/directory"}}
 ```
 
 ### Built-in Sanitization Functions

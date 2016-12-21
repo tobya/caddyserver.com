@@ -82,7 +82,7 @@ Use of environment variables is allowed in addresses and arguments. They must be
 <code class="block"><span class="hl-vhost">localhost:{$PORT}</span>
 <span class="hl-directive">root</span> <span class="hl-arg">{%SITE_ROOT%}</span></code>
 
-(Either syntax works on any platform.)
+Either syntax works on any platform. A single environment variable does not expand out into multiple arguments/values.
 
 ### Addresses
 
