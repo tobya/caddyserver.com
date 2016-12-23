@@ -8,7 +8,7 @@ startup executes a command when the server begins. This is useful for preparing 
 
 Each command that is executed at startup is blocking, unless you suffix the command with a space and `&`, which will cause the command to be run in the background. The output and error of the command go to stdout and stderr, respectively. There is no stdin.
 
-Even if this directive is shared by more than one host, the command will only execute once.
+A command will only be executed once for each time it appears in the Caddyfile.
 
 ### Syntax
 
