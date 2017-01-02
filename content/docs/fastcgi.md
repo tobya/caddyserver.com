@@ -32,8 +32,8 @@ fastcgi proxies requests to a FastCGI server. Even though the most common use fo
 *   **pool** is the number of persistent connections to reuse (can be good for performance on Windows); default is 0.
 *   **upstream** specifies an additional backend to use. Basic load balancing will be performed. This can be specified multiple times.
 *   **connect_timeout** is the time allowed for connecting to the backend. Must be a duration value (e.g. "10s").
-*   **read_timeout** is the time allowed for a single read from a backend. Must be a duration value.
-*   **send_timeout** is the time allowed for a single send to a backend. Must be a duration value.
+*   **read_timeout** is the time allowed to read a response from the backend. Must be a duration value.
+*   **send_timeout** is the time allowed to send a request to the backend. Must be a duration value.
 
 ### Presets
 
