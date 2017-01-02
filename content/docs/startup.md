@@ -8,7 +8,7 @@ startup executes a command when the server begins. This is useful for preparing 
 
 Each command that is executed at startup is blocking, unless you suffix the command with a space and `&`, which will cause the command to be run in the background. The output and error of the command go to stdout and stderr, respectively. There is no stdin.
 
-Even if this directive is shared by more than one host, the command will only execute once.
+A command will only be executed once for each time it appears in the Caddyfile.
 
 ### Syntax
 
@@ -21,3 +21,7 @@ Even if this directive is shared by more than one host, the command will only ex
 Start php-fpm before the server starts listening:
 
 <code class="block"><span class="hl-directive">startup</span> <span class="hl-arg">/etc/init.d/php-fpm start</span></code>
+
+On windows, you might need to use quotes when the command path contains spaces:
+
+<code class="block"><span class="hl-directive">startup</span> <span class="hl-arg">"\"C:\Program Files\PHP\v7.0\php-cgi.exe\" -b 127.0.0.1:9123" &amp;</span></code>
