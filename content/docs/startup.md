@@ -21,3 +21,7 @@ A command will only be executed once for each time it appears in the Caddyfile.
 Start php-fpm before the server starts listening:
 
 <code class="block"><span class="hl-directive">startup</span> <span class="hl-arg">/etc/init.d/php-fpm start</span></code>
+
+On windows, you might need to use quotes when the command path contains spaces:
+
+<code class="block"><span class="hl-directive">startup</span> <span class="hl-arg">"\"C:\Program Files\PHP\v7.0\php-cgi.exe\" -b 127.0.0.1:9123" &amp;</span></code>
