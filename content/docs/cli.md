@@ -109,9 +109,14 @@ Path to the default site root from which to serve files.
 
 Change the server type. Default is http. If your Caddyfile is for another server type, use this option to tell it which server type to use.
 
+#### -verify
+
+Parses the Caddyfile. Any error messages will be printed out or will terminate without starting the server if caddyfile is valid.
+
 #### -version
 
 Prints the version. It also prints build information if not from a tagged release. Caddy will terminate after printing; it does not serve sites if this option is used.
+
 
 ### Signals
 
