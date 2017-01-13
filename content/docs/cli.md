@@ -117,7 +117,6 @@ Parses the Caddyfile. Any error messages will be printed out or will terminate w
 
 Prints the version. It also prints build information if not from a tagged release. Caddy will terminate after printing; it does not serve sites if this option is used.
 
-
 ### Signals
 
 On POSIX-compliant systems, Caddy can be controlled with signals. Here we list them roughly in order from the most forceful action to most graceful.
