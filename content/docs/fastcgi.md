@@ -9,6 +9,7 @@ fastcgi proxies requests to a FastCGI server. Even though the most common use fo
 ### Syntax
 
 <code class="block"><span class="hl-directive">fastcgi</span> <span class="hl-arg"><i>path endpoint</i> [<i>preset</i>]</span> {
+    <span class="hl-subdirective">root</span>     <i>directory</i>
     <span class="hl-subdirective">ext</span>      <i>extension</i>
     <span class="hl-subdirective">split</span>    <i>splitval</i>
     <span class="hl-subdirective">index</span>    <i>indexfile</i>
@@ -24,6 +25,7 @@ fastcgi proxies requests to a FastCGI server. Even though the most common use fo
 *   **path** is the base path to match before the request will be forwarded.
 *   **endpoint** is the address or Unix socket of the FastCGI server.
 *   **preset** is an optional preset name (see below).
+*   **directory** specifies the root directory used by the FastCGI server if different from the root directory of the virtual host. Useful if the FastCGI server is on a different server, chroot-jailed, and/or containerized.
 *   **ext** specifies the extension which, if the request URL has it, would proxy the request to FastCGI.
 *   **split** specifies how to split the URL; the split value becomes the end of the first part and anything in the URL after it becomes part of the PATH_INFO CGI variable.
 *   **index** specifies the default file to try if a file is not specified by the URL.
@@ -66,4 +68,10 @@ With PHP preset, but overriding the ext property:
 
 <code class="block"><span class="hl-directive">fastcgi</span> <span class="hl-arg">/ 127.0.0.1:9001 php</span> {
 	<span class="hl-subdirective">ext</span> .html
+}</code>
+
+With PHP preset, but the FastCGI server is running in a container based on an [official Docker image](https://hub.docker.com/_/php/) (with container port 9000 published to 127.0.0.1:9001):
+
+<code class="block"><span class="hl-directive">fastcgi</span> <span class="hl-arg">/ 127.0.0.1:9001 php</span> {
+	<span class="hl-subdirective">root</span> /var/www/html
 }</code>
