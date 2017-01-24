@@ -19,7 +19,7 @@ These values are obtained from the request.
 *   **{hostname}** - The name of the host machine that is processing the request
 *   **{hostonly}** - Same as {host} but without port information
 *   **{method}** - The request method (GET, POST, etc.)
-*   **{path}** - The path portion of the URL (does not include query string or fragment)
+*   **{path}** - The path portion of the original request URI (does not include query string or fragment)
 *   **{path_escaped}** - Query-escaped variant of {path}
 *   **{port}** - The client's port
 *   **{proto}** - The protocol string (e.g. "HTTP/1.1")
@@ -28,6 +28,8 @@ These values are obtained from the request.
 *   **{remote}** - The client's IP address
 *   **{request}** - The entire HTTP request (sans body), compacted to one line
 *   **{request_body}** - The request body, compacted to one line (max length 100 KB; JSON or XML only)
+*   **{rewrite_path}** - Same as {path}, but is the value of the path after rewrites
+*   **{rewrite_path_escaped}** - Query-escaped variant of {rewrite_path}
 *   **{scheme}** - The protocol/scheme used (usually http or https)
 *   **{uri}** - The request URI (includes path, query string, and fragment)
 *   **{uri_escaped}** - The query-escaped variant of {uri}

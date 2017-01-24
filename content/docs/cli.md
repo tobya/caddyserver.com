@@ -109,9 +109,9 @@ Path to the default site root from which to serve files.
 
 Change the server type. Default is http. If your Caddyfile is for another server type, use this option to tell it which server type to use.
 
-#### -verify
+#### -validate
 
-Parses the Caddyfile. Any error messages will be printed out or will terminate without starting the server if caddyfile is valid.
+Parses the Caddyfile and exits. If syntactically valid, a message will be printed to stdout and the process log (if any) and will exit with status 0. If not, an error will be returned with a non-zero exit status.
 
 #### -version
 

@@ -35,19 +35,21 @@ link: https://github.com/abiosoft/caddy-git
 ---
 <html>
 	<head>
-		<title>{{.Name}}</title>
+		<title>{{html .Name}}</title>
 	</head>
 	<body>
 		{{if .CanGoUp}}<a href="..">Up one level</a><br>{{end}}
 		<h1>{{.Path}}</h1>
 		{{range .Items}}
-		<a href="{{.URL}}">{{.Name}}</a><br>
+		<a href="{{html .URL}}">{{html .Name}}</a><br>
 		{{end}}
 	</body>
 </html>
 ```
 
 ... but the default template is nicer.
+
+Notice that the name and URL are sanitized for safe rendering in a browser. Templates are presumed trusted, so if your file names are not trusted, be sure they are escaped for use in HTML documents.
 
 ### JSON Response
 
