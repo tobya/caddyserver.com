@@ -25,7 +25,15 @@ log enables request logging. The request log is also known from some vernaculars
 
 ### Log File
 
-The log file can be any filename. It could also be `stdout` or `stderr` to write the log to the console, or `syslog` to write to the system log (except on Windows). If the log file does not exist beforehand, Caddy will create it before appending to it.
+The log file can be any filename. It could also be `stdout` or `stderr` to write the log to the console, or `syslog` to write to a system log (see below). If the log file does not exist beforehand, Caddy will create it before appending to it.
+
+If using **syslog** as _logfile_ to log to a system log (local or remote)
+
+- `syslog` log to local system log (except on windows)
+- `syslog://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+udp://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+tcp://host[:port]` - logs via TCP to local or remote syslog server
+
 
 ### Log Format
 
