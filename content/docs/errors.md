@@ -14,7 +14,15 @@ Using an error log, the text of each error will be recorded so you can determine
 
 <code class="block"><span class="hl-directive">errors</span> <span class="hl-arg">[<i>logfile</i>]</span></code>
 
-*   **logfile** is the path to the error log file to create (or append to), relative to the current working directory. It can also be `stdout` or `stderr` to write to the console, `syslog` to write to the system log (except on Windows), or `visible` to write the error (including full stack trace, if applicable) to the response. Writing errors to the response is NOT advised except in local debug situations. Default is `stderr`.
+ **logfile** is the path to the error log file to create (or append to), relative to the current working directory. It can also be `stdout` or `stderr` to write to the console, `syslog` to write to a system log (see below), or `visible` to write the error (including full stack trace, if applicable) to the response. Writing errors to the response is NOT advised except in local debug situations. Default is `stderr`.
+
+   If using **syslog** as _logfile_ to log to a system log (local or remote)
+
+- `syslog` log to local system log (except on windows)
+- `syslog://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+udp://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+tcp://host[:port]` - logs via TCP to local or remote syslog server
+
 
 The above syntax will simply enable error reporting on the server. To specify custom error pages, open a block:
 
