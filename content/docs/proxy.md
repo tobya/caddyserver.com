@@ -23,6 +23,7 @@ However, advanced features including load balancing can be utilized with an expa
 	<span class="hl-subdirective">policy</span> random | least_conn | round_robin | ip_hash
 	<span class="hl-subdirective">fail_timeout</span> <i>duration</i>
 	<span class="hl-subdirective">max_fails</span> <i>integer</i>
+	<span class="hl-subdirective">max_conns</span> <i>integer</i>
 	<span class="hl-subdirective">try_duration</span> <i>duration</i>
 	<span class="hl-subdirective">try_interval</span> <i>duration</i>
 	<span class="hl-subdirective">health_check</span> <i>path</i>
@@ -43,6 +44,7 @@ However, advanced features including load balancing can be utilized with an expa
 *   **policy** is the load balancing policy to use; applies only with multiple backends. May be one of random, least_conn, round_robin, or ip_hash. Default is random.
 *   **fail\_timeout** specifies how long to remember a failed request to a backend. A timeout > 0 enables request failure counting and is required for load balancing between backends in case of failures. If the number of failed requests accumulates to the max\_fails value, the host will be considered down and no requests will be routed to it until failed requests begin to be forgotten. By default, this is disabled (0s), meaning that failed requests will not be remembered and the backend will always be considered available. Must be a duration value (like "10s" or "1m").
 *   **max\_fails** is the number of failed requests within fail\_timeout that are needed before considering a backend to be down. Not used if fail_timeout is 0. Must be at least 1. Default is 1.
+*   **max\_conns** is the maximum number of concurrent requests to each backend.  The default value of 0 indicates no limit.  When the limit is reached, additional requests will fail with Bad Gateway (502).
 *   **try_duration** is how long to try selecting available upstream hosts for each request. By default, this retry is disabled ("0s"). Clients may hang for this long while the proxy tries to find an available upstream host. This value is only used if a request to the initially-selected upstream host fails.
 *   **try\_interval** is how long to wait between selecting another upstream host to handle a request. Default is 250ms. Only relevant when a request to an upstream host fails. Be aware that setting this to 0 with a non-zero try\_duration can result in very tight looping and spin the CPU if all hosts stay down.
 *   **health\_check** will use _path_ to check the health of each backend. If a backend returns a status code of 200-399, then that backend is considered healthy. If it doesn't, the backend is marked as unhealthy for at least _health\_check\_interval_ and no requests are routed to it. If this option is not provided then health checks are disabled.
