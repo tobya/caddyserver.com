@@ -25,6 +25,7 @@ These values are obtained from the request.
 *   **{proto}** - The protocol string (e.g. "HTTP/1.1")
 *   **{query}** - The query string portion of the URL, without leading "?"
 *   **{query_escaped}** - The query-escaped variant of {query}
+*   **{?arg_key}** - Extracts "arg_key" argument from query string
 *   **{remote}** - The client's IP address
 *   **{request}** - The entire HTTP request (sans body), compacted to one line
 *   **{request_body}** - The request body, compacted to one line (max length 100 KB; JSON or XML only)
