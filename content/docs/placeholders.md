@@ -31,6 +31,8 @@ These values are obtained from the request.
 *   **{request_body}** - The request body, compacted to one line (max length 100 KB; JSON or XML only)
 *   **{rewrite_path}** - Same as {path}, but is the value of the path after rewrites
 *   **{rewrite_path_escaped}** - Query-escaped variant of {rewrite_path}
+*   **{rewrite_uri}** - The request URI after any rewrite has occured. (includes path, query string, and fragment)
+*   **{rewrite_uri_escaped}** - The query-escaped variant of {rewrite_uri}
 *   **{scheme}** - The protocol/scheme used (usually http or https)
 *   **{uri}** - The request URI (includes path, query string, and fragment)
 *   **{uri_escaped}** - The query-escaped variant of {uri}
