@@ -18,15 +18,20 @@ This directive allows use of .htpasswd files by prefixing the password argument 
 *   **username** is the username
 *   **password** is the password
 
-This syntax is convenient for protecting a single file or base path/directory. For multiple resources, consider the following variation:
+This syntax is convenient for protecting a single file or base path/directory with the default realm "Restricted". To protect multiple resources or to specify a realm, use the following variation:
 
 <code class="block"><span class="hl-directive">basicauth</span> <span class="hl-arg"><i>username password</i></span> {
-    <span class="hl-subdirective"><i>resources</i></span>
+    <i>resource</i>
+    <span class="hl-subdirective">realm</span> <i>realm</i>
 }</code>
 
 *   **username** is the username
 *   **password** is the password
-*   **resources** is a list of files/directories to protect, one per line
+*   **realm** identifies the protection partition; it is optional and cannot be repeated 
+
+A single argument in a nested block indicates a file or directory to protect; this may be repeated.
+
+The **realm** keyword is used to partition protection space on the server, each with its own authorization credentials. This can be convenient for user agents that are configured to remember authentication details.
 
 ### Examples
 
@@ -34,10 +39,11 @@ Protect all files in /secret so only Bob can access them with the password "hicc
 
 <code class="block"><span class="hl-directive">basicauth</span> <span class="hl-arg">/secret Bob hiccup</span></code>
 
-Protect multiple files and directories so Mary Lou has access with her password "milkshakes":
+Protect multiple files and directories in the realm "Mary Lou's documents" so Mary Lou has access with her password "milkshakes":
 
 <code class="block"><span class="hl-directive">basicauth</span> <span class="hl-arg">"Mary Lou" milkshakes</span> {
-    <span class="hl-subdirective">/notes-for-mary-lou.txt</span>
-    <span class="hl-subdirective">/marylou-files</span>
-    <span class="hl-subdirective">/another-file.txt</span>
+    /notes-for-mary-lou.txt
+    /marylou-files
+    /another-file.txt
+    <span class="hl-subdirective">realm</span> "Mary Lou's documents"
 }</code>
