@@ -11,12 +11,7 @@ timeouts configures Caddy's HTTP timeouts:
 - **Write:** The maximum duration before timing out writes of the response.
 - **Idle:** The maximum time to wait for the next request (when using keep-alive).
 
- By default, Caddy applies these timeout values:
-
-- **Read:** 10s
-- **Read Header:** 10s
-- **Write:** 20s
-- **Idle:** 2m
+By default, timeouts are disabled.
 
 Timeouts are an important way to maintain server connectivity. However, some use cases may necessitate raising or removing the timeouts altogether (for example: legitimate clients on slow networks, long polling, or proxying long requests to trusted upstreams).
 
@@ -47,13 +42,9 @@ Set all timeouts to 1 minute:
 
 <code class="block"><span class="hl-directive">timeouts</span> <span class="hl-arg">1m</span></code>
 
-Set a custom read timeout and disable the write timeout:
+Set custom read and write timeouts:
 
 <code class="block"><span class="hl-directive">timeouts</span> {
 	<span class="hl-subdirective">read</span>  30s
-	<span class="hl-subdirective">write</span> none
+	<span class="hl-subdirective">write</span> 20s
 }</code>
-
-Disable all timeouts (not recommended unless you trust the clients):
-
-<code class="block"><span class="hl-directive">timeouts</span> <span class="hl-arg">none</span></code>
