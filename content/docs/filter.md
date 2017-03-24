@@ -24,7 +24,8 @@ This could be useful to modify static HTML files to add (for example) Google Ana
 
 
 * **rule**: Defines a new filter rule for a file to respond.
-    > **Important:** Define ``path`` and/or ``content_type`` not to open. Slack rules could dramatically impact the system performance because every response is recorded to memory before returning it.
+    
+    > **Important:** Do not define ``path`` and/or ``content_type`` to be too open. Slack rules can dramatically impact the system performance because every response is recorded to memory before returning.
 
     * **path**: Regular expression that matches the requested path.
     * **content_type**: Regular expression that matches the requested content type that results after the evaluation of the whole request.
