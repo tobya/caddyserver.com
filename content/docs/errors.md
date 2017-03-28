@@ -14,7 +14,15 @@ Using an error log, the text of each error will be recorded so you can determine
 
 <code class="block"><span class="hl-directive">errors</span> <span class="hl-arg">[<i>logfile</i>]</span></code>
 
-*   **logfile** is the path to the error log file to create (or append to), relative to the current working directory. It can also be `stdout` or `stderr` to write to the console, `syslog` to write to the system log (except on Windows), or `visible` to write the error (including full stack trace, if applicable) to the response. Writing errors to the response is NOT advised except in local debug situations. Default is `stderr`.
+ **logfile** is the path to the error log file to create (or append to), relative to the current working directory. It can also be `stdout` or `stderr` to write to the console, `syslog` to write to a system log (see below), or `visible` to write the error (including full stack trace, if applicable) to the response. Writing errors to the response is NOT advised except in local debug situations. Default is `stderr`.
+
+   If using **syslog** as _logfile_ to log to a system log (local or remote)
+
+- `syslog` log to local system log (except on windows)
+- `syslog://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+udp://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+tcp://host[:port]` - logs via TCP to local or remote syslog server
+
 
 The above syntax will simply enable error reporting on the server. To specify custom error pages, open a block:
 
@@ -49,12 +57,10 @@ Make errors visible to the client (for debugging only):
 
 <code class="block"><span class="hl-directive">errors</span> <span class="hl-arg">visible</span></code>
 
-Maintain error log files automatically:
+By default, error log files will rotate as files get larger and deleted as files get older. The default log rotation options can be customized:
 
-<code class="block"><span class="hl-directive">errors</span> {
-	<span class="hl-subdirective">log</span> error.log {
-		<span class="hl-subdirective">size</span> 50 <span class="hl-comment"># Rotate after 50 MB</span>
-		<span class="hl-subdirective">age</span>  30 <span class="hl-comment"># Keep rotated files for 30 days</span>
-		<span class="hl-subdirective">keep</span> 5  <span class="hl-comment"># Keep at most 5 log files</span>
-	}
+<code class="block"><span class="hl-directive">errors error.log</span> {
+    <span class="hl-subdirective">rotate_size</span> 50 <span class="hl-comment"># Rotate after 50 MB; the default is 100 MB</span>
+    <span class="hl-subdirective">rotate_age</span>  30 <span class="hl-comment"># Keep rotated files for 30 days; the default is 14 days</span>
+    <span class="hl-subdirective">rotate_keep</span> 5  <span class="hl-comment"># Keep at most 5 log files; the default is 10 log files</span>
 }</code>

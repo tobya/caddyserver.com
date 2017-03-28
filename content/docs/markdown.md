@@ -57,6 +57,8 @@ sitename: A Caddy site
 }
 ```
 
+The front matter fields "author", "copyright", "description", and "subject" will be used to create `<meta>` tags on the rendered pages.
+
 ### Markdown Templates
 
 Template files are just HTML files with template tags, called actions, that can insert dynamic content depending on the file being served. The variables defined in metadata can be accessed from the templates like `{{.Doc.variable}}` where 'variable' is the name of the variable. The variable `.Doc.body` holds the body of the markdown file.
@@ -77,26 +79,7 @@ Here is a simple example template (contrived):
 </html>
 ```
 
-If you enable site generation, you can iterate the list of Markdown pages and link to them, for example:
-
-```html
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Document Index</title>
-	</head>
-	<body>
-	{{range .Links}}
-		<a href="{{.URL}}">{{.Title}}</a>
-		<br>
-		{{.Summary}}
-		<hr>
-	{{end}}
-	</body>
-</html>
-```
-
-Along with these template actions, all the standard [Caddy template actions](/docs/template-actions) are available to you in Markdown templates.
+Along with these template actions, all the standard [Caddy template actions](/docs/template-actions) are available to you in Markdown templates. Be sure to sanitize anything you render as HTML (use the `html`, `js`, and `urlquery` functions)!
 
 ### Examples
 

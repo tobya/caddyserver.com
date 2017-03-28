@@ -25,7 +25,15 @@ log enables request logging. The request log is also known from some vernaculars
 
 ### Log File
 
-The log file can be any filename. It could also be `stdout` or `stderr` to write the log to the console, or `syslog` to write to the system log (except on Windows). If the log file does not exist beforehand, Caddy will create it before appending to it.
+The log file can be any filename. It could also be `stdout` or `stderr` to write the log to the console, or `syslog` to write to a system log (see below). If the log file does not exist beforehand, Caddy will create it before appending to it.
+
+If using **syslog** as _logfile_ to log to a system log (local or remote)
+
+- `syslog` log to local system log (except on windows)
+- `syslog://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+udp://host[:port]` - logs via UDP to local or remote syslog server
+- `syslog+tcp://host[:port]` - logs via TCP to local or remote syslog server
+
 
 ### Log Format
 
@@ -38,19 +46,19 @@ Currently there are two predefined formats.
 
 ### Log Rotation
 
-If you enable log rotation, log files will be automatically maintained when they get large or old. You can use rotation by opening a block on your first line, which can be any of the variations described above:
+Log rotation is enabled by default. Log files will be automatically rotated when they get large and deleted when they get old.
+
+You can customize rotation by opening a block on your first line, which can be any of the variations described above:
 
 <code class="block"><span class="hl-directive">log</span> <span class="hl-arg">...</span> {
-    <span class="hl-subdirective">rotate</span> {
-		<span class="hl-subdirective">size</span> <i>maxsize</i>
-		<span class="hl-subdirective">age</span>  <i>maxage</i>
-		<span class="hl-subdirective">keep</span> <i>maxkeep</i>
-	}
+    <span class="hl-subdirective">rotate_size</span> <i>maxsize</i>
+    <span class="hl-subdirective">rotate_age</span>  <i>maxage</i>
+    <span class="hl-subdirective">rotate_keep</span> <i>maxkeep</i>
 }</code>
 
 *   **maxsize** is the maximum size of a log file in megabytes (MB) before it gets rotated. Default is 100 MB.
-*   **maxage** is the maximum age of a rotated log file in days, after which it will be deleted. Default is to never delete old files because of age.
-*   **maxkeep** is the maximum number of rotated log files to keep. Default is to retain all old log files.
+*   **maxage** is the maximum age of a rotated log file in days, after which it will be deleted. Default is to delete old files after 14 days.
+*   **maxkeep** is the maximum number of rotated log files to keep. Default is to retain up to 10 old log files.
 
 ### Examples
 
@@ -66,12 +74,10 @@ Predefined format:
 
 <code class="block"><span class="hl-directive">log</span> <span class="hl-arg">/ stdout "{combined}"</span></code>
 
-With rotation:
+With custom rotation:
 
 <code class="block"><span class="hl-directive">log</span> <span class="hl-arg">access.log</span> {
-	<span class="hl-subdirective">rotate</span> {
-		<span class="hl-subdirective">size</span> 100 <span class="hl-comment"># Rotate after 100 MB</span>
-		<span class="hl-subdirective">age</span>  14  <span class="hl-comment"># Keep log files for 14 days</span>
-		<span class="hl-subdirective">keep</span> 10  <span class="hl-comment"># Keep at most 10 log files</span>
-	}
+    <span class="hl-subdirective">rotate_size</span> 200 <span class="hl-comment"># Rotate after 200 MB; the default is 100 MB</span>
+    <span class="hl-subdirective">rotate_age</span>  30  <span class="hl-comment"># Keep old log files for 30 days; the default is 14 days</span>
+    <span class="hl-subdirective">rotate_keep</span> 20  <span class="hl-comment"># Keep at most 20 log files; the default is 20 log files</span>
 }</code>
